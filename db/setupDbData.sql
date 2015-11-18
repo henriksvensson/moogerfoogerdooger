@@ -2,12 +2,12 @@ USE mfd;
 
 SET SQL_SAFE_UPDATES = 0;
 
-DELETE FROM presetcontrolvalues;
-DELETE FROM presets;
-DELETE FROM controls;
-DELETE FROM listdimensionitems;
-DELETE FROM listdimensions;
-DELETE FROM rangedimensions;
+DELETE FROM PresetControlValues;
+DELETE FROM Presets;
+DELETE FROM Controls;
+DELETE FROM ListDimensionItems;
+DELETE FROM ListDimensions;
+DELETE FROM RangeDimensions;
 
 INSERT INTO mfd.ListDimensions
 (listDimensionId,
