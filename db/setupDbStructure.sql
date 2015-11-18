@@ -4,13 +4,16 @@ CREATE SCHEMA mfd ;
 
 USE mfd;
 
+/*
+// Works only for MySql version 5.7.6 and up.
 drop user if exists 'mfd'@'%';
 
-create user 'mfd'@'%' identified by 'moogerfoogerdooger' ;
+create user 'mfd'@'%' identified by 'moogerfoogerdooger';
 
 GRANT ALL PRIVILEGES ON mfd.* TO 'mfd'@'%';
 
 FLUSH PRIVILEGES;
+*/
 
 CREATE TABLE Presets (
     presetId INT UNSIGNED PRIMARY KEY,
