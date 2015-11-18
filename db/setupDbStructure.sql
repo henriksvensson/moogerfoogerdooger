@@ -18,12 +18,12 @@ CREATE TABLE RangeDimensions (
 );
 
 CREATE TABLE ListDimensions (
-    listDimensionId INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    listDimensionId INT UNSIGNED PRIMARY KEY,
     listName NVARCHAR(100) NOT NULL
 );
 
 CREATE TABLE ListDimensionItems (
-    listDimensionItem INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    listDimensionItemId INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     listDimensionId INT UNSIGNED NOT NULL,
     FOREIGN KEY (listDimensionId)
         REFERENCES ListDimensions (listDimensionId),
@@ -33,7 +33,7 @@ CREATE TABLE ListDimensionItems (
 );
 
 CREATE TABLE Controls (
-    controlId INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    controlId INT UNSIGNED PRIMARY KEY,
     listDimensionId INT UNSIGNED,
     FOREIGN KEY (listDimensionId)
         REFERENCES ListDimensions (listDimensionId),
