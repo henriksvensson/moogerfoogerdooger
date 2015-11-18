@@ -9,30 +9,30 @@ DELETE FROM listdimensionitems;
 DELETE FROM listdimensions;
 DELETE FROM rangedimensions;
 
-INSERT INTO `mfd`.`listdimensions`
-(`listDimensionId`,
-`listName`)
+INSERT INTO mfd.ListDimensions
+(listDimensionId,
+listName)
 VALUES
 (0, "Bypass on/off");
 
-INSERT INTO `mfd`.`listdimensionitems`
-(`listDimensionId`,
-`fromCcValue`,
-`throughCcValue`,
-`label`)
+INSERT INTO mfd.ListDimensionItems
+(listDimensionId,
+fromCcValue,
+throughCcValue,
+label)
 VALUES
 (0, 0, 63, "Bypassed"),
 (0, 64, 127, "Active");
 
-INSERT INTO `mfd`.`controls`
-(`controlId`,
-`listDimensionId`,
-`rangeDimensionId`,
-`ccNumberMsb`,
-`ccNumberLsb`,
-`controlName`,
-`minCcValue`,
-`maxCcValue`)
+INSERT INTO mfd.Controls
+(controlId,
+listDimensionId,
+rangeDimensionId,
+ccNumberMsb,
+ccNumberLsb,
+controlName,
+minCcValue,
+maxCcValue)
 VALUES
 (80, 0, NULL, NULL, 80, "Bypass on/off", 0, 127);
 
@@ -55,19 +55,19 @@ FROM
     listdimensions ld ON ldi.listdimensionid = ld.listdimensionid;
 */
 
-INSERT INTO `mfd`.`presets`
-(`presetId`,
-`presetNumber`,
-`presetName`)
+INSERT INTO mfd.Presets
+(presetId,
+presetNumber,
+presetName)
 VALUES
 (0, 0, "Bypass preset"),
 (1, 1, "Active preset");
 
 
-INSERT INTO `mfd`.`presetcontrolvalues`
-(`presetId`,
-`controlId`,
-`ccValue`)
+INSERT INTO mfd.PresetControlValues
+(presetId,
+controlId,
+ccValue)
 VALUES
 (0, 80, 0),
 (1, 80, 64);
