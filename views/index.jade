@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  button(id="testbutton").
+    Test
+
+  p#results
+
+  script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
+  script(src='/javascripts/index.js')
