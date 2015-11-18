@@ -4,6 +4,14 @@ CREATE SCHEMA mfd ;
 
 USE mfd;
 
+drop user if exists 'mfd'@'%';
+
+create user 'mfd'@'%' identified by 'moogerfoogerdooger' ;
+
+GRANT ALL PRIVILEGES ON mfd.* TO 'mfd'@'%';
+
+FLUSH PRIVILEGES;
+
 CREATE TABLE Presets (
     presetId INT UNSIGNED PRIMARY KEY,
     presetNumber INT UNSIGNED NOT NULL,
