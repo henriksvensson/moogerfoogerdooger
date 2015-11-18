@@ -8,7 +8,7 @@ var dbConnection = mysql.createConnection({
 dbConnection.connect();
 
 var getPresets = function(req, res) {
-	dbConnection.query('SELECT * from mfd.presets', function(err, rows, fields) {
+	dbConnection.query('SELECT * from mfd.Presets', function(err, rows, fields) {
 	  if (!err)
 	    res.end(JSON.stringify(rows));
 	  else
