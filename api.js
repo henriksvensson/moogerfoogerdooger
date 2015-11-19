@@ -1,19 +1,16 @@
-var mysql      = require('mysql');
-var dbConnection = mysql.createConnection({
-  host     : 'localhost',
-  user     : 'mfd',
-  password : 'moogerfoogerdooger',
-  database : 'mfd'
-});
-dbConnection.connect();
+var db = require('./db');
 
-var getPresets = function(req, res) {
-	dbConnection.query('SELECT * from mfd.Presets', function(err, rows, fields) {
+/**
+ * Returns the list of Presets in JSON format.
+ *
+ */
+var getPresets = function(request, response) {
+	db.getPresets(function(err, rows) {
 	  if (!err)
-	    res.end(JSON.stringify(rows));
+	    response.end(JSON.stringify(rows));
 	  else
 	    console.log('Error while performing Query.');
 	});
-};
+	};
 
 module.exports.getPresets = getPresets;
