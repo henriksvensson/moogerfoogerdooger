@@ -1,0 +1,9 @@
+mixin presetstable(presets)
+  table
+    thead
+      tr
+        th Preset name
+    tbody
+      each preset in presets
+        tr
+          td #{preset.presetName}
