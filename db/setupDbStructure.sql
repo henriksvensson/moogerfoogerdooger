@@ -22,7 +22,7 @@ CREATE TABLE Presets (
 );
 
 CREATE TABLE RangeDimensions (
-    rangeDimensionId INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    rangeDimensionId INT UNSIGNED PRIMARY KEY,
     minPresentationValue INT,
     maxPresentationValue INT,
     unit NVARCHAR(100)

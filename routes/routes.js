@@ -11,7 +11,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/addpreset', function(req, res, next) {
-  res.render('addpreset', { title: 'Add preset' });
+	db.getControls( function(err, allControls) {
+		db.getControlsForPreset(2, function(err, currentControls) {
+      res.render('addpreset', { title: 'Add preset', allcontrols: allControls, currentcontrols: currentControls });
+    });
+  });
 });
 
 module.exports = router;

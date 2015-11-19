@@ -1,4 +1,4 @@
 mixin controlsdropdown(controls)
     select.form-control
-      each control in control
+      each control in controls
         option(value=control.controlId) #{control.controlName}

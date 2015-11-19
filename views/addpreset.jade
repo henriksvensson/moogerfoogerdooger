@@ -1,3 +1,6 @@
+include mixins/controlsdropdown
+include mixins/controlstable
+
 extends layout
 
 block heading
@@ -11,12 +14,14 @@ block content
       label(for="presetname") Preset name:
       input.form-control#presetname
 
+  h2 Controls
+
+  +controlstable(currentcontrols)
 
   div.row
-    div.col-xs-10
-      h2 Controls
-    div.col-xs-2
-      button.btn#btnaddcontrol Add
+    div.col-xs-8
+      +controlsdropdown(allcontrols)
+    div.col-xs-4 Add
 
 append scripts
   script(src='/javascripts/index.js')

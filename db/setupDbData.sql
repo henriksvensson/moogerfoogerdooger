@@ -24,6 +24,15 @@ VALUES
 (0, 0, 63, "Bypassed"),
 (0, 64, 127, "Active");
 
+INSERT INTO mfd.RangeDimensions
+(rangeDimensionId,
+minPresentationValue,
+maxPresentationValue,
+unit
+)
+VALUES
+(0, 0, 100, "%");
+
 INSERT INTO mfd.Controls
 (controlId,
 listDimensionId,
@@ -34,7 +43,8 @@ controlName,
 minCcValue,
 maxCcValue)
 VALUES
-(80, 0, NULL, NULL, 80, "Bypass on/off", 0, 127);
+( 80,    0, NULL, NULL, 80, "Bypass on/off", 0,   127),
+(739, NULL,    0,    7, 39,  "Output level", 0, 16383);
 
 /*
 SELECT 
@@ -61,7 +71,8 @@ presetNumber,
 presetName)
 VALUES
 (0, 0, "Bypass preset"),
-(1, 1, "Active preset");
+(1, 1, "Active preset"),
+(2, 2, "Multi control preset");
 
 
 INSERT INTO mfd.PresetControlValues
@@ -70,7 +81,9 @@ controlId,
 ccValue)
 VALUES
 (0, 80, 0),
-(1, 80, 64);
+(1, 80, 64),
+(2, 80, 0),
+(2, 739, 8000);
 
 /*
 SELECT 

@@ -42,8 +42,8 @@ var getControlsForPreset = function(presetNumber, callback) {
 	if(!callback)
 		return;
 
-	dbConnection.query('SELECT c.controlId, c.controlName FROM Controls c JOIN PresetControlValues pcv ON pcv.controlId = c.controlId JOIN Presets p ON p.presetId = pcv.presetI WHERE p.presetNumber = ' + presetNumber, 
-		function(err, rows, fields) {
+  var sql = "SELECT c.controlId, c.controlName, pcv.ccValue, pcv.ccValue / (c.maxCcValue - c.minCcValue) * rd.maxPresentationValue + rd.minPresentationValue as rangeValue, rd.unit, ld.listName, ldi.label FROM Controls c JOIN PresetControlValues pcv ON pcv.controlId = c.controlId JOIN Presets p ON p.presetId = pcv.presetId LEFT JOIN RangeDimensions rd ON rd.rangeDimensionId = c.rangeDimensionId LEFT JOIN ListDimensions ld ON ld.listDimensionId = c.listDimensionId LEFT JOIN ListDimensionItems ldi ON ld.listDimensionId = ldi.listDimensionId AND pcv.ccValue BETWEEN ldi.fromCcValue AND ldi.throughCcValue WHERE p.presetNumber = ";
+	dbConnection.query(sql + presetNumber, function(err, rows, fields) {
 		  if (!err)
 		    callback(null, rows)
 		  else

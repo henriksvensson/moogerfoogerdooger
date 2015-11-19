@@ -1,0 +1,17 @@
+mixin controlstable(controls)
+  table.table.table-striped
+    thead
+      tr
+        th Control
+        th Value
+    tbody
+      each control in controls
+        tr
+          td #{control.controlName}
+          td
+            if control.rangeValue
+              | #{control.rangeValue} #{control.unit}
+            else if control.label
+              | #{control.label}
+            else
+              | #{control.ccValue} [RAW]
