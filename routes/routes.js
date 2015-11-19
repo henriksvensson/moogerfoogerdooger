@@ -11,9 +11,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/addpreset', function(req, res, next) {
-	db.getControls( function(err, allControls) {
-		db.getControlsForPreset(2, function(err, currentControls) {
-      res.render('addpreset', { title: 'Add preset', allcontrols: allControls, currentcontrols: currentControls });
+	var presetNumber = -1;
+	if(req.query.presetNumber)
+		presetNumber = req.query.presetNumber;
+	db.getControlsNotInPreset(presetNumber, function(err, controlsNotInPreset) {
+		db.getControlsInPreset(presetNumber, function(err, controlsInPreset) {
+      res.render('addpreset', { title: 'Add preset', controlsnotinpreset: controlsNotInPreset, controlsinpreset: controlsInPreset });
     });
   });
 });

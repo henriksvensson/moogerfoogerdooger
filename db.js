@@ -38,16 +38,30 @@ var getControls = function(callback) {
 };
 module.exports.getControls = getControls;
 
-var getControlsForPreset = function(presetNumber, callback) {
+var getControlsInPreset = function(presetNumber, callback) {
 	if(!callback)
 		return;
 
-  var sql = "SELECT c.controlId, c.controlName, pcv.ccValue, pcv.ccValue / (c.maxCcValue - c.minCcValue) * rd.maxPresentationValue + rd.minPresentationValue as rangeValue, rd.unit, ld.listName, ldi.label FROM Controls c JOIN PresetControlValues pcv ON pcv.controlId = c.controlId JOIN Presets p ON p.presetId = pcv.presetId LEFT JOIN RangeDimensions rd ON rd.rangeDimensionId = c.rangeDimensionId LEFT JOIN ListDimensions ld ON ld.listDimensionId = c.listDimensionId LEFT JOIN ListDimensionItems ldi ON ld.listDimensionId = ldi.listDimensionId AND pcv.ccValue BETWEEN ldi.fromCcValue AND ldi.throughCcValue WHERE p.presetNumber = ";
-	dbConnection.query(sql + presetNumber, function(err, rows, fields) {
-		  if (!err)
-		    callback(null, rows)
+  var sql = "SELECT c.controlId, c.controlName, pcv.ccValue, pcv.ccValue / (c.maxCcValue - c.minCcValue) * rd.maxPresentationValue + rd.minPresentationValue as rangeValue, rd.unit, ld.listName, ldi.label FROM Controls c JOIN PresetControlValues pcv ON pcv.controlId = c.controlId JOIN Presets p ON p.presetId = pcv.presetId LEFT JOIN RangeDimensions rd ON rd.rangeDimensionId = c.rangeDimensionId LEFT JOIN ListDimensions ld ON ld.listDimensionId = c.listDimensionId LEFT JOIN ListDimensionItems ldi ON ld.listDimensionId = ldi.listDimensionId AND pcv.ccValue BETWEEN ldi.fromCcValue AND ldi.throughCcValue WHERE p.presetNumber = " + presetNumber;
+	dbConnection.query(sql, function(err, rows, fields) {
+		  if (!err) 
+		    callback(null, rows);
 		  else
 		    callback(err, null);
 		});
 };
-module.exports.getControlsForPreset = getControlsForPreset;
+module.exports.getControlsInPreset = getControlsInPreset;
+
+var getControlsNotInPreset = function(presetNumber, callback) {
+	if(!callback)
+		return;
+
+  var sql = "SELECT c.controlId, c.controlName FROM Controls c WHERE c.controlId NOT IN (SELECT pcv.controlId FROM PresetControlValues pcv JOIN Presets p ON p.presetId = pcv.presetId WHERE p.presetNumber = " + presetNumber + ")";
+	dbConnection.query(sql, function(err, rows, fields) {
+		  if (!err)
+		    callback(null, rows);
+		  else
+		    callback(err, null);
+		});
+};
+module.exports.getControlsNotInPreset = getControlsNotInPreset;

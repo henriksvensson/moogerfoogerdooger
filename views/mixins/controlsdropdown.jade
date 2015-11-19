@@ -1,4 +1,5 @@
 mixin controlsdropdown(controls)
+  if controls && controls.length > 0
     select.form-control
       each control in controls
         option(value=control.controlId) #{control.controlName}

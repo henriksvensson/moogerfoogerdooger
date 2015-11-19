@@ -16,12 +16,13 @@ block content
 
   h2 Controls
 
-  +controlstable(currentcontrols)
+  +controlstable(controlsinpreset)
 
-  div.row
-    div.col-xs-8
-      +controlsdropdown(allcontrols)
-    div.col-xs-4 Add
+  if controlsnotinpreset && controlsnotinpreset.length > 0
+    div.row
+      div.col-xs-8
+        +controlsdropdown(controlsnotinpreset)
+      div.col-xs-4 Add
 
 append scripts
   script(src='/javascripts/index.js')
