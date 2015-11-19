@@ -2,6 +2,19 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    block styles
+      link(rel='stylesheet', href='/stylesheets/bootstrap/bootstrap.min.css')
+      link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    div.row
+      div.col-xs-10
+        block heading
+      div.col-xs-2
+        block action
+    div.row
+      div.col-xs-12
+        block content
+
+    block scripts
+       script(src="/javascripts/jquery/jquery.min.js")
+       script(src="/javascripts/bootstrap/bootstrap.min.js")

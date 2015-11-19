@@ -10,4 +10,8 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/addpreset', function(req, res, next) {
+  res.render('addpreset', { title: 'Add preset' });
+});
+
 module.exports = router;

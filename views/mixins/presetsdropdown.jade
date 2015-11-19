@@ -1,4 +1,4 @@
 mixin presetsdropdown(presets)
-  select
-    each preset in presets
-      option(value:preset.presetNumber) #{preset.presetName}
+    select.form-control
+      each preset in presets
+        option(value=preset.presetNumber) #{preset.presetName}

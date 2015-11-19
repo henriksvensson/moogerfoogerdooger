@@ -1,0 +1,22 @@
+extends layout
+
+block heading
+  h1= title
+block action
+  a.btn(href="..") Close
+
+block content
+  form.form(role="form")
+    div.form-group
+      label(for="presetname") Preset name:
+      input.form-control#presetname
+
+
+  div.row
+    div.col-xs-10
+      h2 Controls
+    div.col-xs-2
+      button.btn#btnaddcontrol Add
+
+append scripts
+  script(src='/javascripts/index.js')

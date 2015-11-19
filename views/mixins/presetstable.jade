@@ -1,9 +1,11 @@
 mixin presetstable(presets)
-  table
+  table.table.table-striped
     thead
       tr
-        th Preset name
+        th Number
+        th Name
     tbody
       each preset in presets
         tr
+          td #{preset.presetNumber}
           td #{preset.presetName}

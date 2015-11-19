@@ -22,7 +22,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 var routes = require('./routes/routes');
 app.use('/', routes);
 var api = require('./routes/api/routes');
-app.use('/api/', api);
+app.use('/api', api);
+
+app.use('/stylesheets/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/javascripts/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
+app.use('/javascripts/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
