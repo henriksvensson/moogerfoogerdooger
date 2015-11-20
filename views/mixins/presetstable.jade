@@ -6,6 +6,6 @@ mixin presetstable(presets)
         th Name
     tbody
       each preset in presets
-        tr
+        tr.presetRow(data-href="#{preset.presetNumber}")
           td #{preset.presetNumber}
           td #{preset.presetName}
