@@ -1,4 +1,5 @@
 mixin presetsdropdown(presets)
+  if presets && presets.length > 0
     select.form-control
       each preset in presets
         option(value=preset.presetNumber) #{preset.presetName}

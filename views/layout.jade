@@ -1,9 +1,9 @@
 doctype html
-html
+html(ng-app="myApp")
   head
     title= title
     block styles
-      link(rel='stylesheet', href='/stylesheets/bootstrap/bootstrap.min.css')
+      link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
       link(rel='stylesheet', href='/stylesheets/style.css')
   body
     div.row
@@ -16,5 +16,6 @@ html
         block content
 
     block scripts
-       script(src="/javascripts/jquery/jquery.min.js")
-       script(src="/javascripts/bootstrap/bootstrap.min.js")
+      script(src="/javascripts/jquery/jquery.min.js")
+      script(src="/bootstrap/js/bootstrap.min.js")
+      script(src="/javascripts/angular/angular.min.js")

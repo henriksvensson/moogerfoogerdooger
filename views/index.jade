@@ -4,23 +4,37 @@ include mixins/presetsdropdown
 extends layout
 
 block heading
-  h1= title
+  h1.= title
 block action
   button.btn(id="testbutton") Close
 
 block content
-
   div.row
     div.col-xs-10
       h2 Presets
     div.col-xs-2
       a.btn#btnaddpreset(href="addpreset") Add
 
-  p#results
-
   +presetstable(presets)
 
   +presetsdropdown(presets)
 
+  div(ng-controller='presetsCtrl')
+    table.table.table-striped
+      tr(ng-repeat="preset in presets" ng-click="editPreset(preset.presetNumber)")
+        td {{preset.presetNumber}}
+        td {{preset.presetName}}
+        td
+          span.glyphicon.glyphicon-remove
+
+  button.btn 
+    span.glyphicon.glyphicon-plus
+    | Add preset
+
+
+  div(ng-controller='editPresetCtrl')
+
 append scripts
   script(src='/javascripts/index.js')
+  script(src='/javascripts/app.js')
+  script(src='/javascripts/controllers.js')
