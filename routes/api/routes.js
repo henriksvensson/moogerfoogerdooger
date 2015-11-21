@@ -33,6 +33,25 @@ module.exports.presets = function (req, res) {
   });
 };
 
+module.exports.controlsInPreset = function (req, res) {
+  db.getControlsInPreset(2, function(err, rows) {
+    if (!err)
+      res.end(JSON.stringify(rows));
+    else
+      console.log('Error while performing Query.');
+  });
+};
+
+module.exports.controlsNotInPreset = function (req, res) {
+  db.getControlsNotInPreset(2, function(err, rows) {
+    if (!err)
+      res.end(JSON.stringify(rows));
+    else
+      console.log('Error while performing Query.');
+  });
+};
+
+
 module.exports.posts = function (req, res) {
   var posts = [];
   data.posts.forEach(function (post, i) {

@@ -9,17 +9,8 @@ block action
   button.btn(id="testbutton") Close
 
 block content
-  div.row
-    div.col-xs-10
-      h2 Presets
-    div.col-xs-2
-      a.btn#btnaddpreset(href="addpreset") Add
-
-  +presetstable(presets)
-
-  +presetsdropdown(presets)
-
   div(ng-controller='presetsCtrl')
+    h2 Presets ({{presets.length}})
     table.table.table-striped
       tr(ng-repeat="preset in presets" ng-click="editPreset(preset.presetNumber)")
         td {{preset.presetNumber}}
@@ -33,6 +24,24 @@ block content
 
 
   div(ng-controller='editPresetCtrl')
+    h3 {{presetName}}
+    form(novalidate)
+      input(type="text" ng-model="presetName")
+    table.table.table-striped
+      tr(ng-repeat="control in controlsInPreset" ng-click="editControl(control.controlId)")
+        td {{control.controlName}}
+        td(ng-bind="controlValue(control)")
+        td
+          span.glyphicon.glyphicon-remove
+    select.form-control(ng-show="controlsNotInPreset.length > 0")
+        option(ng-repeat="control in controlsNotInPreset" value="{{control.controlId}}") {{control.controlName}}
+    button.btn 
+      span.glyphicon.glyphicon-plus
+      | Add control
+    button.btn 
+      span.glyphicon.glyphicon-ok
+      | Done
+
 
 append scripts
   script(src='/javascripts/index.js')

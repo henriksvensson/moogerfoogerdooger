@@ -26,6 +26,8 @@ app.get('/partials/:name', routes.partials);
 
 var api = require('./routes/api/routes');
 app.get('/api/presets', api.presets);
+app.get('/api/controlsInPreset', api.controlsInPreset);
+app.get('/api/controlsNotInPreset', api.controlsNotInPreset);
 
 app.get('/api/posts', api.posts);
 app.get('/api/post/:id', api.post);
