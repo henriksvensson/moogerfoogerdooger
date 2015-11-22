@@ -2,14 +2,13 @@
 
 /* Controllers */
 
-angular.module('myApp', []).
+angular.module('myApp', ['myApp.services']).
   controller('IndexCtrl', function ($scope, $http) {
     $http.get('/api/posts').
       success(function(data, status, headers, config) {
         $scope.posts = data.posts;
       });
-  }).
-  controller('presetsCtrl', function ($scope, $http) {
+  }).controller('presetsCtrl', function ($scope, $http) {
     $http.get('/api/presets').
       success(function(data, status, headers, config) {
         $scope.presets = data;
@@ -17,9 +16,7 @@ angular.module('myApp', []).
     $scope.editPreset = function(presetNumber) {
     	console.log(presetNumber);
     };
-  }).
-
-  controller('editPresetCtrl', function($scope, $http ) {
+  }).controller('editPresetCtrl', ['$scope', '$http', 'editPresetService', function($scope, $http, editPresetService) {
     $http.get('/api/controlsInPreset').
       success(function(data, status, headers, config) {
         $scope.controlsInPreset = data;
@@ -35,6 +32,7 @@ angular.module('myApp', []).
     		return control.label;
     	else
     		return control.ccValue;
-    };
+      };
+    $scope.getPresetService = editPresetService;
   	$scope.presetName = "New preset";
-  });
+  }]);

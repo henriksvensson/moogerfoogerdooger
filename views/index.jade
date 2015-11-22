@@ -42,8 +42,10 @@ block content
       span.glyphicon.glyphicon-ok
       | Done
 
+    p(ng-bind="getPresetService()")
 
 append scripts
   script(src='/javascripts/index.js')
   script(src='/javascripts/app.js')
+  script(src='/javascripts/services.js')
   script(src='/javascripts/controllers.js')
