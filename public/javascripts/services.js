@@ -1,6 +1,10 @@
 angular.module('myApp.services', []).
 factory('editPresetService', function() {
-  return function() {
-    return "hej";
-  }
- });
+  var presetNumber = -1;
+  return {
+    setPresetNumber : function(p) {
+      presetNumber = p;
+    },
+    getPresetNumber : presetNumber
+    };
+  });
