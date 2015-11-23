@@ -24,6 +24,9 @@ block content
           td(ng-bind="getControlPresentationValue(control.controlId, control.ccValue)")
           td
             span.glyphicon.glyphicon-remove
+      select.form-control
+        option(ng-repeat="control in controlsNotInUse()" value="{{control.controlId}}") {{control.controlName}}
+      
       button.btn(ng-click="setCurrentPreset(null)") Close
 
   //- div(ng-controller='presetsCtrl')

@@ -59,12 +59,24 @@ controller('TestCtrl', function ($scope, $http) {
         $scope.allControls = controls;
     });
 
+  // TODO: Rewrite as an angular filter.
+  $scope.controlsNotInUse = function() {
+  	if($scope.currentPreset == null || !angular.isDefined($scope.allControls))
+  		return [];
+  	return $scope.allControls.filter(function(item) {
+  		for(c = 0; c < $scope.currentPreset.controls.length; c++)
+  			if(item.controlId == $scope.currentPreset.controls[c].controlId)
+  				return false;
+  		return true;
+  	});
+  };
+
  	$scope.deletePreset = function(presetNumber) {
  		for(i = 0; i < presets.length; i++) {
  			if(presets[i].presetNumber == presetNumber)
  				presets.splice(i, 1);
  		}
- 	}
+ 	};
 
   $scope.getControlName = function(controlId) {
     var c = $scope.getControl(controlId);
