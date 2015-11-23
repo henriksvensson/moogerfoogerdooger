@@ -14,18 +14,17 @@ block content
       tr(ng-repeat="preset in presets" ng-click="setCurrentPreset(preset)")
         td(ng-bind="preset.presetNumber")
         td(ng-bind="preset.presetName")
-        td
+        td(ng-click="deletePreset(preset.presetNumber)")
           span.glyphicon.glyphicon-remove
     div.panel.panel-default(ng-show="currentPreset != null")
       h2 Controls for {{currentPreset.presetName}}
       table.table.table-striped
         tr(ng-repeat="control in currentPreset.controls")
-          td(ng-bind="control.controlId")
-          td(ng-bind="control.displayValue")
+          td(ng-bind="getControlName(control.controlId)")
+          td(ng-bind="getControlPresentationValue(control.controlId, control.ccValue)")
+          td
+            span.glyphicon.glyphicon-remove
       button.btn(ng-click="setCurrentPreset(null)") Close
-
-    p {{presetsDb}}
-    p {{allControls}}
 
   //- div(ng-controller='presetsCtrl')
   //-   h2 Presets ({{presets.length}})
