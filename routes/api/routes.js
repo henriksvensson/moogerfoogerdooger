@@ -33,6 +33,15 @@ module.exports.presets = function (req, res) {
   });
 };
 
+module.exports.controls = function (req, res) {
+  db.getControls(function(err, rows) {
+    if (!err)
+      res.end(JSON.stringify(rows));
+    else
+      console.log('Error while performing Query.');
+  });
+};
+
 module.exports.controlsInPreset = function (req, res) {
   db.getControlsInPreset(2, function(err, rows) {
     if (!err)

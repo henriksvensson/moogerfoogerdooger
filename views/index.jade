@@ -6,46 +6,64 @@ extends layout
 block heading
   h1.= title
 block action
-  button.btn(id="testbutton") Close
+  button.btn#testbutton Close
 
 block content
-  div(ng-controller='presetsCtrl')
-    h2 Presets ({{presets.length}})
+  div(ng-controller="TestCtrl")
     table.table.table-striped
-      tr(ng-repeat="preset in presets" ng-click="editPreset(preset.presetNumber)")
-        td {{preset.presetNumber}}
-        td {{preset.presetName}}
+      tr(ng-repeat="preset in presets" ng-click="setCurrentPreset(preset)")
+        td(ng-bind="preset.presetNumber")
+        td(ng-bind="preset.presetName")
         td
           span.glyphicon.glyphicon-remove
+    div.panel.panel-default(ng-show="currentPreset != null")
+      h2 Controls for {{currentPreset.presetName}}
+      table.table.table-striped
+        tr(ng-repeat="control in currentPreset.controls")
+          td(ng-bind="control.controlId")
+          td(ng-bind="control.displayValue")
+      button.btn(ng-click="setCurrentPreset(null)") Close
 
-  button.btn 
-    span.glyphicon.glyphicon-plus
-    | Add preset
+    p {{presetsDb}}
+    p {{allControls}}
+
+  //- div(ng-controller='presetsCtrl')
+  //-   h2 Presets ({{presets.length}})
+  //-   table.table.table-striped
+  //-     tr(ng-repeat="preset in presets" ng-click="editPreset(preset.presetNumber)")
+  //-       td {{preset.presetNumber}}
+  //-       td {{preset.presetName}}
+  //-       td
+  //-         span.glyphicon.glyphicon-remove
+  //-   button.btn 
+  //-     span.glyphicon.glyphicon-plus
+  //-     | Add preset
 
 
-  div(ng-controller='editPresetCtrl')
-    h3 {{presetName}}
-    form(novalidate)
-      input(type="text" ng-model="presetName")
-    table.table.table-striped
-      tr(ng-repeat="control in controlsInPreset" ng-click="editControl(control.controlId)")
-        td {{control.controlName}}
-        td(ng-bind="controlValue(control)")
-        td
-          span.glyphicon.glyphicon-remove
-    select.form-control(ng-show="controlsNotInPreset.length > 0")
-        option(ng-repeat="control in controlsNotInPreset" value="{{control.controlId}}") {{control.controlName}}
-    button.btn 
-      span.glyphicon.glyphicon-plus
-      | Add control
-    button.btn 
-      span.glyphicon.glyphicon-ok
-      | Done
+  //- div(ng-controller='editPresetCtrl')
+  //-   h3 {{presetName}}
+  //-   form(novalidate)
+  //-     input(type="text" ng-model="presetName")
+  //-   table.table.table-striped
+  //-     tr(ng-repeat="control in controlsInPreset" ng-click="editControl(control.controlId)")
+  //-       td {{control.controlName}}
+  //-       td(ng-bind="controlValue(control)")
+  //-       td
+  //-         span.glyphicon.glyphicon-remove
+  //-   select.form-control(ng-show="controlsNotInPreset.length > 0")
+  //-       option(ng-repeat="control in controlsNotInPreset" value="{{control.controlId}}") {{control.controlName}}
+  //-   button.btn 
+  //-     span.glyphicon.glyphicon-plus
+  //-     | Add control
+  //-   button.btn 
+  //-     span.glyphicon.glyphicon-ok
+  //-     | Done
 
-    p(ng-bind="getPresetService.getPresetNumber")
+  //-   p(ng-bind="getPresetService.getPresetNumber")
 
 append scripts
   script(src='/javascripts/index.js')
   script(src='/javascripts/app.js')
   script(src='/javascripts/services.js')
   script(src='/javascripts/controllers.js')
+  script(src='/javascripts/controllertest.js')
