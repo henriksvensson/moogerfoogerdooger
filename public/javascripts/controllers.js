@@ -1,16 +1,10 @@
 angular.module('myApp', []).
-controller('TestCtrl', function ($scope, $http) {
+controller('EditPresetsCtrl', function ($scope, $http) {
 
-	$scope.currentPreset = null;
-	$scope.setCurrentPreset = function(preset){
-		$scope.currentPreset = preset;
-	};
-	
 	$http({
 		method: 'GET',
 		url: '/db/presets'
 			}).then(function(response) {
-				console.log(response.data);
         $scope.presets = response.data.presets;
     });
 	$http({
@@ -19,6 +13,26 @@ controller('TestCtrl', function ($scope, $http) {
 			}).then(function(response) {
         $scope.allControls = response.data.controls;
     });
+
+	$scope.currentPreset = null;
+	$scope.setCurrentPreset = function(preset){
+		$scope.currentPreset = preset;
+	};
+	
+	$scope.addPreset = function() {
+		var nextPresetNumber = 0;
+		for(i = 0; i < $scope.presets.length; i++)
+			if($scope.presets[i].presetNumber >= nextPresetNumber)
+				nextPresetNumber = $scope.presets[i].presetNumber + 1;
+
+		var newPreset = {
+			presetNumber: nextPresetNumber,
+			presetName: "New preset #" + nextPresetNumber,
+			controls: []};
+		$scope.presets.push(newPreset);
+		$scope.setCurrentPreset(newPreset);
+			console.log($scope.presets.length);
+	}
 
   // TODO: Rewrite as an angular filter.
   $scope.controlsNotInUse = function() {
@@ -33,9 +47,9 @@ controller('TestCtrl', function ($scope, $http) {
   };
 
  	$scope.deletePreset = function(presetNumber) {
- 		for(i = 0; i < presets.length; i++) {
- 			if(presets[i].presetNumber == presetNumber)
- 				presets.splice(i, 1);
+ 		for(i = 0; i < $scope.presets.length; i++) {
+ 			if($scope.presets[i].presetNumber == presetNumber)
+ 				$scope.presets.splice(i, 1);
  		}
  	};
 
@@ -62,3 +76,4 @@ controller('TestCtrl', function ($scope, $http) {
   	return null;
   }
 });
+

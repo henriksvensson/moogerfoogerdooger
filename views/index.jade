@@ -9,14 +9,14 @@ block action
   button.btn#testbutton Close
 
 block content
-  div(ng-controller="TestCtrl")
+  div(ng-controller="EditPresetsCtrl")
     table.table.table-striped
       tr(ng-repeat="preset in presets" ng-click="setCurrentPreset(preset)")
         td(ng-bind="preset.presetNumber")
         td(ng-bind="preset.presetName")
         td(ng-click="deletePreset(preset.presetNumber)")
           span.glyphicon.glyphicon-remove
-    button.btn 
+    button.btn(ng-click="addPreset()")
       span.glyphicon.glyphicon-plus
       | Add preset
 
@@ -28,14 +28,14 @@ block content
           td(ng-bind="getControlPresentationValue(control.controlId, control.ccValue)")
           td
             span.glyphicon.glyphicon-remove
-      select.form-control
-        option(ng-repeat="control in controlsNotInUse()" value="{{control.controlId}}") {{control.controlName}}
-      
-      button.btn(ng-click="setCurrentPreset(null)") Close
-      button.btn 
-        span.glyphicon.glyphicon-plus
-        | Add control
-      button.btn 
+      div.col-xs-10
+        select.form-control
+          option(ng-repeat="control in controlsNotInUse()" value="{{control.controlId}}") {{control.controlName}}
+      div.col-xs-2
+        button.btn 
+          span.glyphicon.glyphicon-plus
+          | Add
+      button.btn(ng-click="setCurrentPreset(null)") 
         span.glyphicon.glyphicon-ok
         | Done
 
