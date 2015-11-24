@@ -5,20 +5,22 @@ extends layout
 
 block heading
   h1.= title
-block action
-  button.btn#testbutton Close
 
 block content
   div(ng-controller="EditPresetsCtrl")
-    table.table.table-striped
-      tr(ng-repeat="preset in presets" ng-click="setCurrentPreset(preset)")
-        td(ng-bind="preset.presetNumber")
-        td(ng-bind="preset.presetName")
-        td(ng-click="deletePreset(preset.presetNumber)")
-          span.glyphicon.glyphicon-remove
-    button.btn(ng-click="addPreset()")
-      span.glyphicon.glyphicon-plus
-      | Add preset
+    div.panel.panel-default(ng-show="currentPreset == null")
+      h2 Presets
+      table.table.table-striped
+        tr(ng-repeat="preset in presets" ng-click="setCurrentPreset(preset)")
+          td(ng-bind="preset.presetNumber")
+          td(ng-bind="preset.presetName")
+          td.td-action(ng-click="deletePreset(preset.presetNumber)")
+            span.glyphicon.glyphicon-remove
+          td.td-action
+            span.glyphicon.glyphicon-export
+      button.btn(ng-click="addPreset()")
+        span.glyphicon.glyphicon-plus
+        | Add preset
 
     div.panel.panel-default(ng-show="currentPreset != null")
       h2 Controls for {{currentPreset.presetName}}
