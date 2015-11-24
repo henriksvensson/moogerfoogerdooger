@@ -4,7 +4,7 @@ include mixins/presetsdropdown
 extends layout
 
 block heading
-  h1.= title
+  h1= title
 
 block content
   div(ng-controller="EditPresetsCtrl")
@@ -16,7 +16,7 @@ block content
           td(ng-bind="preset.presetName")
           td.td-action(ng-click="deletePreset(preset.presetNumber)")
             span.glyphicon.glyphicon-remove
-          td.td-action
+          td.td-action(ng-click="sendPreset(preset)")
             span.glyphicon.glyphicon-export
       button.btn(ng-click="addPreset()")
         span.glyphicon.glyphicon-plus
@@ -40,6 +40,8 @@ block content
       button.btn(ng-click="setCurrentPreset(null)") 
         span.glyphicon.glyphicon-ok
         | Done
+
+    button.btn LIVE MODE
 
 append scripts
   script(src='/javascripts/index.js')

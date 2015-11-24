@@ -75,5 +75,9 @@ controller('EditPresetsCtrl', function ($scope, $http) {
   			return $scope.allControls[c];
   	return null;
   }
+
+  $scope.sendPreset = function(preset) {
+  	$http.post('api/sendpreset', preset);
+  }
 });
 

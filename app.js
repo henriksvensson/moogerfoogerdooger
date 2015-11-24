@@ -21,11 +21,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var routes = require('./routes/routes');
 app.get('/', routes.index);
+app.get('/live', routes.live);
 app.get('/partials/:name', routes.partials);
 
 var db = require("./routes/db");
 app.get('/db/presets', db.presets);
 app.get('/db/controls', db.controls);
+
+var api = require('./routes/api');
+app.post('/api/sendpreset', api.sendPreset);
 
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use('/javascripts/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
