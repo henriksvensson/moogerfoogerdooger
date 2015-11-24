@@ -20,21 +20,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var routes = require('./routes/routes');
-//app.use('/', routes);
 app.get('/', routes.index);
 app.get('/partials/:name', routes.partials);
 
-var api = require('./routes/api/routes');
-app.get('/api/presets', api.presets);
-app.get('/api/controls', api.controls);
-app.get('/api/controlsInPreset', api.controlsInPreset);
-app.get('/api/controlsNotInPreset', api.controlsNotInPreset);
-
-app.get('/api/posts', api.posts);
-app.get('/api/post/:id', api.post);
-app.post('/api/post', api.addPost);
-app.put('/api/post/:id', api.editPost);
-app.delete('/api/post/:id', api.deletePost);
+var db = require("./routes/db");
+app.get('/db/presets', db.presets);
+app.get('/db/controls', db.controls);
 
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use('/javascripts/jquery', express.static(__dirname + '/node_modules/jquery/dist'));

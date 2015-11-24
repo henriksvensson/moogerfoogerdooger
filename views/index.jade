@@ -16,6 +16,10 @@ block content
         td(ng-bind="preset.presetName")
         td(ng-click="deletePreset(preset.presetNumber)")
           span.glyphicon.glyphicon-remove
+    button.btn 
+      span.glyphicon.glyphicon-plus
+      | Add preset
+
     div.panel.panel-default(ng-show="currentPreset != null")
       h2 Controls for {{currentPreset.presetName}}
       table.table.table-striped
@@ -28,44 +32,15 @@ block content
         option(ng-repeat="control in controlsNotInUse()" value="{{control.controlId}}") {{control.controlName}}
       
       button.btn(ng-click="setCurrentPreset(null)") Close
-
-  //- div(ng-controller='presetsCtrl')
-  //-   h2 Presets ({{presets.length}})
-  //-   table.table.table-striped
-  //-     tr(ng-repeat="preset in presets" ng-click="editPreset(preset.presetNumber)")
-  //-       td {{preset.presetNumber}}
-  //-       td {{preset.presetName}}
-  //-       td
-  //-         span.glyphicon.glyphicon-remove
-  //-   button.btn 
-  //-     span.glyphicon.glyphicon-plus
-  //-     | Add preset
-
-
-  //- div(ng-controller='editPresetCtrl')
-  //-   h3 {{presetName}}
-  //-   form(novalidate)
-  //-     input(type="text" ng-model="presetName")
-  //-   table.table.table-striped
-  //-     tr(ng-repeat="control in controlsInPreset" ng-click="editControl(control.controlId)")
-  //-       td {{control.controlName}}
-  //-       td(ng-bind="controlValue(control)")
-  //-       td
-  //-         span.glyphicon.glyphicon-remove
-  //-   select.form-control(ng-show="controlsNotInPreset.length > 0")
-  //-       option(ng-repeat="control in controlsNotInPreset" value="{{control.controlId}}") {{control.controlName}}
-  //-   button.btn 
-  //-     span.glyphicon.glyphicon-plus
-  //-     | Add control
-  //-   button.btn 
-  //-     span.glyphicon.glyphicon-ok
-  //-     | Done
-
-  //-   p(ng-bind="getPresetService.getPresetNumber")
+      button.btn 
+        span.glyphicon.glyphicon-plus
+        | Add control
+      button.btn 
+        span.glyphicon.glyphicon-ok
+        | Done
 
 append scripts
   script(src='/javascripts/index.js')
   script(src='/javascripts/app.js')
   script(src='/javascripts/services.js')
   script(src='/javascripts/controllers.js')
-  script(src='/javascripts/controllertest.js')

@@ -1,41 +1,64 @@
-'use strict';
+angular.module('myApp', []).
+controller('TestCtrl', function ($scope, $http) {
 
-/* Controllers */
+	$scope.currentPreset = null;
+	$scope.setCurrentPreset = function(preset){
+		$scope.currentPreset = preset;
+	};
+	
+	$http({
+		method: 'GET',
+		url: '/db/presets'
+			}).then(function(response) {
+				console.log(response.data);
+        $scope.presets = response.data.presets;
+    });
+	$http({
+		method: 'GET',
+		url: '/db/controls'
+			}).then(function(response) {
+        $scope.allControls = response.data.controls;
+    });
 
-angular.module('myApp', ['myApp.services']).
-  controller('IndexCtrl', function ($scope, $http) {
-    $http.get('/api/posts').
-      success(function(data, status, headers, config) {
-        $scope.posts = data.posts;
-      });
-  }).
+  // TODO: Rewrite as an angular filter.
+  $scope.controlsNotInUse = function() {
+  	if($scope.currentPreset == null || !angular.isDefined($scope.allControls))
+  		return [];
+  	return $scope.allControls.filter(function(item) {
+  		for(c = 0; c < $scope.currentPreset.controls.length; c++)
+  			if(item.controlId == $scope.currentPreset.controls[c].controlId)
+  				return false;
+  		return true;
+  	});
+  };
 
-  controller('presetsCtrl', ['$scope', '$http', 'editPresetService', function ($scope, $http, editPresetService) {
-    $http.get('/api/presets').
-      success(function(data, status, headers, config) {
-        $scope.presets = data;
-      });
-    $scope.editPreset = function(presetNumber) {
-    	editPresetService.setPresetNumber(presetNumber);
-    };
-  }]).
+ 	$scope.deletePreset = function(presetNumber) {
+ 		for(i = 0; i < presets.length; i++) {
+ 			if(presets[i].presetNumber == presetNumber)
+ 				presets.splice(i, 1);
+ 		}
+ 	};
 
-  controller('editPresetCtrl', ['$scope', '$http', 'editPresetService', function($scope, $http, editPresetService) {
-    $http.get('/api/controlsInPreset').
-      success(function(data, status, headers, config) {
-        $scope.controlsInPreset = data;
-      });
-    $http.get('/api/controlsNotInPreset').
-      success(function(data, status, headers, config) {
-        $scope.controlsNotInPreset = data;
-      });
-    $scope.controlValue = function(control) {
-    	if(angular.isDefined(control.rangeValue) && control.rangeValue != null)
-    		return control.rangeValue + ' ' + control.unit;
-    	else if(angular.isDefined(control.label) && control.label != null)
-    		return control.label;
-    	else
-    		return control.ccValue;
-      };
-  	$scope.presetName = "New preset";
-  }]);
+  $scope.getControlName = function(controlId) {
+    var c = $scope.getControl(controlId);
+		return c.controlName;  	
+  };
+  $scope.getControlPresentationValue = function(controlId, ccValue) {
+    var c = $scope.getControl(controlId);
+    if(!angular.isDefined(c))
+    	return "N/A";
+    if(angular.isDefined(c.listDimension)) 
+    	for(i = 0; i < c.listDimension.length; i++)
+    		if(c.listDimension[i].listValue == ccValue)
+    			return c.listDimension[i].listLabel;
+    if(angular.isDefined(c.rangeDimension))
+    	return ccValue / (c.maxCcValue - c.minCcValue) * c.rangeDimension.maxPresentationValue - c.rangeDimension.minPresentationValue + " " + c.rangeDimension.unit;
+  	return control.ccValue + " [raw]";
+  };
+  $scope.getControl = function(controlId) {
+  	for(c = 0; c < $scope.allControls.length; c++) 
+  		if($scope.allControls[c].controlId == controlId)
+  			return $scope.allControls[c];
+  	return null;
+  }
+});

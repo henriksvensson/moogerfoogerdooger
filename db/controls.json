@@ -1,0 +1,23 @@
+{
+	"controls": 
+	[
+		{
+			"controlId": 80,
+			"ccNumberMSB": null,
+			"ccNumberLSB": 80,
+			"controlName": "Bypass on/off",
+			"minCcValue": 0,
+			"maxCcValue": 127,
+			"listDimension": [{"listLabel": "Bypassed", "listValue": 0}, {"listLabel": "Active", "listValue": 64}]
+		},
+		{
+			"controlId": 739,
+			"ccNumberMSB": 7,
+			"ccNumberLSB": 39,
+			"controlName": "Output level",
+			"minCcValue": 0,
+			"maxCcValue": 16383,
+			"rangeDimension": {"minPresentationValue": 0, "maxPresentationValue": 100, "unit": "%"}
+		}
+	]
+}
