@@ -30,14 +30,19 @@ block content
           td(ng-bind="getControlPresentationValue(control.controlId, control.ccValue)")
           td
             span.glyphicon.glyphicon-remove
-      div.col-xs-10
-        select.form-control
-          option(ng-repeat="control in controlsNotInUse()" value="{{control.controlId}}") {{control.controlName}}
+      div.col-xs-5
+        select.form-control(ng-model="currentControl" ng-options="control as control.controlName for control in controlsNotInUse()")
+      div.col-xs-5
+        div(ng-show="currentControl.rangeDimension != null")
+          p show range
+        div(ng-show="currentControl.listDimension")
+          select.form-control(ng-model="currentListItem" ng-options="listItem as listItem.listLabel for listItem in currentControl.listDimension")
+
       div.col-xs-2
-        button.btn 
+        button.btn(ng-click="addCurrentControlToCurrentPreset()") 
           span.glyphicon.glyphicon-plus
           | Add
-      button.btn(ng-click="setCurrentPreset(null)") 
+      button.btn(ng-click="currentPreset = null") 
         span.glyphicon.glyphicon-ok
         | Done
 

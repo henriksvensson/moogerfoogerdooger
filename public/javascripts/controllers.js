@@ -31,8 +31,22 @@ controller('EditPresetsCtrl', function ($scope, $http) {
 			controls: []};
 		$scope.presets.push(newPreset);
 		$scope.setCurrentPreset(newPreset);
-			console.log($scope.presets.length);
 	}
+
+  $scope.addCurrentControlToCurrentPreset = function() {
+    var currentCcValue;
+    if($scope.currentListItem != null)
+      currentCcValue = $scope.currentListItem.listValue;
+    if($scope.currentRangeDimension != null)
+      currentCcValue = $scope.currentRangeDimension.ccValue;
+
+    var newControl = {
+      controlId : $scope.currentControl.controlId,
+      ccValue : currentCcValue
+    };
+
+    $scope.currentPreset.controls.push(newControl);
+  }
 
   // TODO: Rewrite as an angular filter.
   $scope.controlsNotInUse = function() {
@@ -74,6 +88,10 @@ controller('EditPresetsCtrl', function ($scope, $http) {
   		if($scope.allControls[c].controlId == controlId)
   			return $scope.allControls[c];
   	return null;
+  }
+
+  $scope.updateControlInput = function() {
+    var t = "hej";
   }
 
   $scope.sendPreset = function(preset) {
