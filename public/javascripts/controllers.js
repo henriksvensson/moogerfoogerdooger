@@ -35,10 +35,19 @@ controller('EditPresetsCtrl', function ($scope, $http) {
 
   $scope.addCurrentControlToCurrentPreset = function() {
     var currentCcValue;
-    if($scope.currentListItem != null)
+    if($scope.currentListItem != null){
       currentCcValue = $scope.currentListItem.listValue;
-    if($scope.currentRangeDimension != null)
-      currentCcValue = $scope.currentRangeDimension.ccValue;
+      $scope.currentListItem = null; // Clear variable for next input.
+    }
+    if($scope.currentRangePresentationValue != null) {
+      // Calculate the correct CCValue from the presentation value range.
+      var minPres = $scope.currentControl.rangeDimension.minPresentationValue;
+      var maxPres = $scope.currentControl.rangeDimension.maxPresentationValue;
+      var minCc   = $scope.currentControl.minCcValue;
+      var maxCc   = $scope.currentControl.maxCcValue;
+      currentCcValue = ($scope.currentRangePresentationValue - minPres) / (maxPres - minPres) * (maxCc - minCc);
+      $scope.currentRangePresentationValue = null // Clear variable for next input.
+    }
 
     var newControl = {
       controlId : $scope.currentControl.controlId,
@@ -66,6 +75,11 @@ controller('EditPresetsCtrl', function ($scope, $http) {
  				$scope.presets.splice(i, 1);
  		}
  	};
+
+  $scope.savePresetAndClose = function() {
+    $http.post('db/savepresets', $scope.presets); // Saves all presets.
+    $scope.currentPreset = null; // Closes the controls input view.
+  }
 
   $scope.getControlName = function(controlId) {
     var c = $scope.getControl(controlId);

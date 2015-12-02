@@ -27,6 +27,7 @@ app.get('/partials/:name', routes.partials);
 var db = require("./routes/db");
 app.get('/db/presets', db.presets);
 app.get('/db/controls', db.controls);
+app.post('/db/savepresets', db.savePresets);
 
 var api = require('./routes/api');
 app.post('/api/sendpreset', api.sendPreset);

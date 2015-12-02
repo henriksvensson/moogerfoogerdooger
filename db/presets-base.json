@@ -1,0 +1,24 @@
+{
+	"presets":
+	[
+		{ 
+			"presetNumber": 0,
+			"presetName": "Preset 1",
+			"controls": [{
+				"controlId": 739,
+				"ccValue": 1200}, {
+				"controlId": 80,
+				"ccValue": 64}
+				]
+		},
+		{
+			"presetNumber": 1,
+			"presetName": "Preset 2",
+			"controls": [{
+				"controlId": 80,
+				"ccValue": 0}
+				]
+		}
+	]
+}
+

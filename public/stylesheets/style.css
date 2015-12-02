@@ -16,3 +16,7 @@ span {
 .td-action {
 	width: 20px;
 }
+
+.panel-default {
+	padding: 3px;
+}

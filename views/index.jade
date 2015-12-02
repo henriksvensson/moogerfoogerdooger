@@ -34,7 +34,8 @@ block content
         select.form-control(ng-model="currentControl" ng-options="control as control.controlName for control in controlsNotInUse()")
       div.col-xs-5
         div(ng-show="currentControl.rangeDimension != null")
-          p show range
+          input(type="text" ng-model="currentRangePresentationValue")
+          span(ng-bind="currentControl.rangeDimension.unit")
         div(ng-show="currentControl.listDimension")
           select.form-control(ng-model="currentListItem" ng-options="listItem as listItem.listLabel for listItem in currentControl.listDimension")
 
@@ -42,7 +43,7 @@ block content
         button.btn(ng-click="addCurrentControlToCurrentPreset()") 
           span.glyphicon.glyphicon-plus
           | Add
-      button.btn(ng-click="currentPreset = null") 
+      button.btn(ng-click="savePresetAndClose()") 
         span.glyphicon.glyphicon-ok
         | Done
 
