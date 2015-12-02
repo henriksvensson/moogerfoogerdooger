@@ -1,0 +1,1 @@
+This folder contains backup copies of files written by the MoogerFoogerDooger server.
