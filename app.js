@@ -33,7 +33,7 @@ app.post('/db/savepresets', db.savePresets);
 var api = require('./routes/api');
 app.post('/api/sendpreset', api.sendPreset);
 
-var sse = new express_sse(['teset', 'sdfe']);
+var sse = new express_sse();
 app.get('/sse', sse.init);
 // Use the following line to send messegaes on the stream:
 // sse.send('coolt');
