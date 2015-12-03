@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var express_sse = require('express-sse');
 
 var app = express();
 
@@ -31,6 +32,11 @@ app.post('/db/savepresets', db.savePresets);
 
 var api = require('./routes/api');
 app.post('/api/sendpreset', api.sendPreset);
+
+var sse = new express_sse(['teset', 'sdfe']);
+app.get('/sse', sse.init);
+// Use the following line to send messegaes on the stream:
+// sse.send('coolt');
 
 app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
 app.use('/javascripts/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
@@ -66,6 +72,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;

@@ -34,8 +34,7 @@ module.exports.savePresets = function(req, res){
   var p = { presets: req.body };
   fs.writeFile(presetsFileName, JSON.stringify(p, null, 2), function(err) {
       if(err) {
-          return console.log("Could not save presets file. " + err);
-          res.end();
+          console.log("Could not save presets file. " + err);
       }
   }); 
   res.end();
