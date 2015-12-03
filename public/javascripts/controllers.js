@@ -74,10 +74,15 @@ controller('EditPresetsCtrl', function ($scope, $http) {
  			if($scope.presets[i].presetNumber == presetNumber)
  				$scope.presets.splice(i, 1);
  		}
+    $scope.savePresets();
  	};
 
-  $scope.savePresetAndClose = function() {
-    $http.post('db/savepresets', $scope.presets); // Saves all presets.
+  $scope.savePresets = function() {
+    $http.post('db/savepresets', $scope.presets);
+  }
+
+  $scope.savePresetsAndClose = function() {
+    $scope.savePresets();
     $scope.currentPreset = null; // Closes the controls input view.
   }
 

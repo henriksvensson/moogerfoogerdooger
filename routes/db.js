@@ -10,7 +10,12 @@ var presets = require(presetsFileName);
 var controls = require(controlsFileName);
 
 module.exports.presets = function(req, res){
-  res.end(JSON.stringify(presets));
+  fs.readFile(presetsFileName, function(err, data) {
+    if(err)
+      throw err;
+    presets = data;
+    res.end(presets);
+  });
 };
 
 module.exports.controls = function(req, res){
