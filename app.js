@@ -4,13 +4,6 @@ var Gpio = require('onoff').Gpio,
     buttonBlack = new Gpio(17, 'in', 'both')
     ;
 
-buttonRed.watch(function(err, value) {
-    console.log('Got ya RED! ' + value);
-});
-
-buttonBlack.watch(function(err, value) {
-    console.log('Got ya BLACK! ' + value);
-});
 
 function exit() {
     buttonRed.unexport();
@@ -94,5 +87,18 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+
+/**
+ * Methods for handling GPIO (hardware buttons).
+ */
+buttonRed.watch(function(err, value) {
+    sse.send('B01:' + value);
+});
+
+buttonBlack.watch(function(err, value) {
+    sse.send('B02:' + value);
+});
+
 
 module.exports = app;
