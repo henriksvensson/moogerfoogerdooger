@@ -1,18 +1,3 @@
-// For Raspberry Pi GPIO pins, go to http://pinout.xyz/pinout/pin7_gpio4
-var Gpio = require('onoff').Gpio,
-    buttonRed = new Gpio(4, 'in', 'both'),
-    buttonBlack = new Gpio(17, 'in', 'both')
-    ;
-
-
-function exit() {
-    buttonRed.unexport();
-    buttonBlack.unexport();
-    process.exit();
-}
-
-process.on('SIGINT', exit)
-
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -92,11 +77,24 @@ app.use(function(err, req, res, next) {
 /**
  * Methods for handling GPIO (hardware buttons).
  */
-buttonRed.watch(function(err, value) {
+// For Raspberry Pi GPIO pins, go to http://pinout.xyz/pinout/pin7_gpio4
+var Gpio = require('onoff').Gpio,
+    button01 = new Gpio(4, 'in', 'both'),
+    button02 = new Gpio(17, 'in', 'both');
+
+function exit() {
+    button01.unexport();
+    button02.unexport();
+    process.exit();
+}
+
+process.on('SIGINT', exit)
+
+button01.watch(function(err, value) {
     sse.send('B01:' + value);
 });
 
-buttonBlack.watch(function(err, value) {
+button02.watch(function(err, value) {
     sse.send('B02:' + value);
 });
 

@@ -4,53 +4,56 @@ include mixins/presetsdropdown
 extends layout
 
 block heading
-  h1= title
+    h1= title
 
 block content
-  div(ng-controller="EditPresetsCtrl")
-    div.panel.panel-default(ng-show="currentPreset == null")
-      h2 Presets
-      table.table.table-striped
-        tr(ng-repeat="preset in presets" ng-click="setCurrentPreset(preset)")
-          td(ng-bind="preset.presetNumber")
-          td(ng-bind="preset.presetName")
-          td.td-action(ng-click="deletePreset(preset.presetNumber)")
-            span.glyphicon.glyphicon-remove
-          td.td-action(ng-click="sendPreset(preset)")
-            span.glyphicon.glyphicon-export
-      button.btn(ng-click="addPreset()")
-        span.glyphicon.glyphicon-plus
-        | Add preset
+    div(ng-controller="EditPresetsCtrl")
+        div.panel.panel-default(ng-show="currentPreset == null")
+            h2 Presets
+            table.table.table-striped
+                tr(ng-repeat="preset in presets" ng-click="setCurrentPreset(preset)")
+                    td(ng-bind="preset.presetNumber")
+                    td(ng-bind="preset.presetName")
+                    td.td-action(ng-click="deletePreset(preset.presetNumber)")
+                        span.glyphicon.glyphicon-remove
+                    td.td-action(ng-click="sendPreset(preset)")
+                        span.glyphicon.glyphicon-export
+            button.btn(ng-click="addPreset()")
+                span.glyphicon.glyphicon-plus
+                | Add preset
 
-    div.panel.panel-default(ng-show="currentPreset != null")
-      h2 Controls for {{currentPreset.presetName}}
-      table.table.table-striped
-        tr(ng-repeat="control in currentPreset.controls")
-          td(ng-bind="getControlName(control.controlId)")
-          td(ng-bind="getControlPresentationValue(control.controlId, control.ccValue)")
-          td
-            span.glyphicon.glyphicon-remove
-      div.col-xs-5
-        select.form-control(ng-model="currentControl" ng-options="control as control.controlName for control in controlsNotInUse()")
-      div.col-xs-5
-        div(ng-show="currentControl.rangeDimension != null")
-          input(type="text" ng-model="currentRangePresentationValue")
-          span(ng-bind="currentControl.rangeDimension.unit")
-        div(ng-show="currentControl.listDimension")
-          select.form-control(ng-model="currentListItem" ng-options="listItem as listItem.listLabel for listItem in currentControl.listDimension")
+        div.panel.panel-default(ng-show="currentPreset != null")
+            h2 Controls for {{currentPreset.presetName}}
+            table.table.table-striped
+                tr(ng-repeat="control in currentPreset.controls")
+                    td(ng-bind="getControlName(control.controlId)")
+                    td(ng-bind="getControlPresentationValue(control.controlId, control.ccValue)")
+                    td
+                        span.glyphicon.glyphicon-remove
+            div.col-xs-5
+                select.form-control(ng-model="currentControl" ng-options="control as control.controlName for control in controlsNotInUse()")
+            div.col-xs-5
+                div(ng-show="currentControl.rangeDimension != null")
+                    input(type="text" ng-model="currentRangePresentationValue")
+                    span(ng-bind="currentControl.rangeDimension.unit")
+                div(ng-show="currentControl.listDimension")
+                    select.form-control(ng-model="currentListItem" ng-options="listItem as listItem.listLabel for listItem in currentControl.listDimension")
 
-      div.col-xs-2
-        button.btn(ng-click="addCurrentControlToCurrentPreset()") 
-          span.glyphicon.glyphicon-plus
-          | Add
-      button.btn(ng-click="savePresetsAndClose()") 
-        span.glyphicon.glyphicon-ok
-        | Done
+            div.col-xs-2
+                button.btn(ng-click="addCurrentControlToCurrentPreset()")
+                    span.glyphicon.glyphicon-plus
+                    | Add
+            button.btn(ng-click="savePresetsAndClose()")
+                span.glyphicon.glyphicon-ok
+                | Done
 
-    button.btn LIVE MODE
+        button.btn LIVE MODE
+
+        div(ng-show="showButton1", style="background:red") BUTTON 01
+        div(ng-show="showButton2", style="background:black") BUTTON 02
 
 append scripts
-  script(src='/javascripts/index.js')
-  script(src='/javascripts/app.js')
-  script(src='/javascripts/services.js')
-  script(src='/javascripts/controllers.js')
+    script(src='/javascripts/index.js')
+    script(src='/javascripts/app.js')
+    script(src='/javascripts/services.js')
+    script(src='/javascripts/controllers.js')

@@ -1,22 +1,23 @@
-blackbody {
-	background-color: #222222;
-	color: #BBBBBB;
-	padding: 5px;
+.blackbody {
+    background-color: #222222;
+    color: #BBBBBB;
+    padding: 5px;
 }
 
 body {
-	padding: 5px;
+    padding: 5px;
+    overflow-x: hidden;
 }
 
 span {
-	margin-left: 3px;
-	margin-right: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 .td-action {
-	width: 20px;
+    width: 20px;
 }
 
 .panel-default {
-	padding: 3px;
+    padding: 3px;
 }
