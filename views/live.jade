@@ -1,21 +1,8 @@
-doctype html
-html(ng-app="myApp")
-  head
-    title= title
-    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    div.row
-      div.col-xs-12
-        h1= title
-    div.row
-      div.col-xs-12
+extends layout
 
-    script(src="/javascripts/jquery/jquery.min.js")
-    script(src="/bootstrap/js/bootstrap.min.js")
-    script(src="/javascripts/angular/angular.min.js")
-  
-    script(src='/javascripts/index.js')
-    script(src='/javascripts/app.js')
-    script(src='/javascripts/services.js')
-    script(src='/javascripts/controllers.js')
+include ../node_modules/jade-bootstrap/components/icons
+
+block content
+    div(ng-controller="EditPresetsCtrl")
+        div.animated.zoomIn
+            p Wohoooo!

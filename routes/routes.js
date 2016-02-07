@@ -8,8 +8,3 @@ module.exports.index = function(req, res){
 module.exports.live = function(req, res){
   res.render('live', { title: 'Live mode' } );
 };
-
-module.exports.partials = function (req, res) {
-  var name = req.params.name;
-  res.render('partials/' + name);
-};

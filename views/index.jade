@@ -3,9 +3,6 @@ include mixins/presetsdropdown
 
 extends layout
 
-block heading
-    h1= title
-
 block content
     div(ng-controller="EditPresetsCtrl")
         div.panel.panel-default(ng-show="currentPreset == null")
@@ -47,13 +44,7 @@ block content
                 span.glyphicon.glyphicon-ok
                 | Done
 
-        button.btn LIVE MODE
+        a.btn(href="live") LIVE MODE
 
         div(ng-show="showButton1", style="background:red") BUTTON 01
         div(ng-show="showButton2", style="background:black") BUTTON 02
-
-append scripts
-    script(src='/javascripts/index.js')
-    script(src='/javascripts/app.js')
-    script(src='/javascripts/services.js')
-    script(src='/javascripts/controllers.js')
