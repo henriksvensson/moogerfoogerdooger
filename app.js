@@ -1,12 +1,20 @@
+// For Raspberry Pi GPIO pins, go to http://pinout.xyz/pinout/pin7_gpio4
 var Gpio = require('onoff').Gpio,
-    button = new Gpio(4, 'in', 'both');
+    buttonRed = new Gpio(4, 'in', 'both'),
+    buttonBlack = new Gpio(17, 'in', 'both')
+    ;
 
-button.watch(function(err, value) {
-    console.log('Got ya!' + value);
+buttonRed.watch(function(err, value) {
+    console.log('Got ya RED! ' + value);
+});
+
+buttonBlack.watch(function(err, value) {
+    console.log('Got ya BLACK! ' + value);
 });
 
 function exit() {
-    button.unexport();
+    buttonRed.unexport();
+    buttonBlack.unexport();
     process.exit();
 }
 
