@@ -32,7 +32,12 @@
     {
       "presetNumber": 3,
       "presetName": "New preset #3",
-      "controls": []
+      "controls": [
+        {
+          "controlId": 739,
+          "ccValue": 16383
+        }
+      ]
     }
   ]
 }
