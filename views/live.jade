@@ -1,14 +1,23 @@
 extends layout
 
-include ../node_modules/jade-bootstrap/components/icons
-include mixins/livepresetpagination
-
 block content
     div(ng-controller="LiveCtrl")
-        div(class="text-center")
-            +livepresetpagination()
 
-        h1(ng-bind="currentPreset.presetName")
-        p(ng-bind="currentPreset.presetNumber")
-        p(ng-bind="JSON.stringify(currentPreset)")
+        div(class="text-center")
+            nav
+                ul.pagination.pagination-lg
+                    li(ng-click="activatePreviousPreset()")
+                        a(href="#", aria-label="Previous")
+                            span(aria-hidden="true") &laquo;
+                    li(ng-repeat="preset in allPresets", ng-click="activatePresetIndex($index)", ng-class="{active: preset==currentPreset}")
+                        a(href="#", ng-bind="preset.presetNumber")
+                    li(ng-click="activateNextPreset()")
+                        a(href="#", aria-label="Next")
+                            span(aria-hidden="true") &raquo;
+
+        div(class="text-center")
+            h1(ng-bind="currentPreset.presetName")
+            p(ng-bind="currentPreset.presetNumber")
+            ul
+                li(ng-repeat="control in currentPreset.controls", ng-bind="control.controlId")
 

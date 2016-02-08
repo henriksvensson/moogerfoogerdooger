@@ -1,22 +1,43 @@
-app.controller('LiveCtrl', ['$scope', '$http', 'presetService', function ($scope, $http, presetService) {
+app.controller('LiveCtrl', ['$scope', '$http', 'presetService', 'eventSourceService',
+    function ($scope, $http, presetService, eventSourceService) {
 
-    $scope.presets = [
-        {presetNumber: 0,  presetName: "Preset A"},
-        {presetNumber: 1,  presetName: "Preset B"},
-        {presetNumber: 2,  presetName: "Preset C"},
-        {presetNumber: 3,  presetName: "Preset D"},
-        {presetNumber: 4,  presetName: "Preset E"},
-        {presetNumber: 5,  presetName: "Preset F"},
-        {presetNumber: 6,  presetName: "Preset G"},
-        {presetNumber: 7,  presetName: "Preset H"},
-        {presetNumber: 8,  presetName: "Preset I"},
-        {presetNumber: 9,  presetName: "Preset J"},
-        {presetNumber: 10, presetName: "Preset K"}
-    ];
-    $scope.currentPreset = $scope.presets[0];
+        // Fetch all presets from the service and assign them to scope variables.
+        presetService.getAllPresets(function (presets) {
+            $scope.allPresets = presets;
+            $scope.currentPresetIndex = 0;
+            $scope.currentPreset = $scope.allPresets[$scope.currentPresetIndex];
+        });
 
-    $scope.activatePreset = function (preset) {
-        $scope.currentPreset = preset;
-    };
+        eventSourceService.register("B01", "1", function () {
+            $scope.activatePreviousPreset();
+        });
+        eventSourceService.register("B02", "1", function () {
+            $scope.activateNextPreset();
+        });
 
-}]);
+        /**
+         * Activates a preset to be shown in the live view.
+         * @param presetIndex The index of the preset to be activated.
+         */
+        $scope.activatePresetIndex = function (presetIndex) {
+            $scope.currentPresetIndex = presetIndex;
+            $scope.currentPreset = $scope.allPresets[presetIndex];
+        };
+
+        $scope.activateNextPreset = function () {
+            if ($scope.currentPresetIndex < $scope.allPresets.length - 1) {
+                $scope.currentPresetIndex++;
+                $scope.currentPreset = $scope.allPresets[$scope.currentPresetIndex];
+                $scope.$apply();
+            }
+        };
+
+        $scope.activatePreviousPreset = function () {
+            if ($scope.currentPresetIndex > 0) {
+                $scope.currentPresetIndex--;
+                $scope.currentPreset = $scope.allPresets[$scope.currentPresetIndex];
+                $scope.$apply();
+            }
+        };
+
+    }]);

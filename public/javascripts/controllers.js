@@ -1,14 +1,12 @@
-app.controller('EditPresetsCtrl', ['$scope', '$http', 'presetService', function ($scope, $http, presetService) {
+app.controller('EditPresetsCtrl', ['$scope', '$http', 'presetService', 'controlService',
+    function ($scope, $http, presetService, controlService) {
 
     presetService.getAllPresets(function(presets) {
         $scope.presets = presets;
     });
 
-    $http({
-        method: 'GET',
-        url: '/db/controls'
-    }).then(function (response) {
-        $scope.allControls = response.data.controls;
+    controlService.getAllControls(function(controls) {
+        $scope.allControls = controls;
     });
 
     $scope.currentPreset = null;
@@ -84,12 +82,8 @@ app.controller('EditPresetsCtrl', ['$scope', '$http', 'presetService', function 
         $scope.currentPreset = null; // Closes the controls input view.
     }
 
-    $scope.getControlName = function (controlId) {
-        var c = $scope.getControl(controlId);
-        return c.controlName;
-    };
     $scope.getControlPresentationValue = function (controlId, ccValue) {
-        var c = $scope.getControl(controlId);
+        var c = controlService.getControl(controlId);
         if (!angular.isDefined(c))
             return "N/A";
         if (angular.isDefined(c.listDimension))
@@ -100,50 +94,9 @@ app.controller('EditPresetsCtrl', ['$scope', '$http', 'presetService', function 
             return ccValue / (c.maxCcValue - c.minCcValue) * c.rangeDimension.maxPresentationValue - c.rangeDimension.minPresentationValue + " " + c.rangeDimension.unit;
         return control.ccValue + " [raw]";
     };
-    $scope.getControl = function (controlId) {
-        for (c = 0; c < $scope.allControls.length; c++)
-            if ($scope.allControls[c].controlId == controlId)
-                return $scope.allControls[c];
-        return null;
-    }
-
-    $scope.updateControlInput = function () {
-        var t = "hej";
-    }
 
     $scope.sendPreset = function (preset) {
         $http.post('api/sendpreset', preset);
     }
 
-    /**
-     * Initialize the event source handler. The server will send commands on an open stream that needs to be
-     * interpreted on the client side.
-     * @type {EventSource}
-     */
-    var es = new EventSource("/sse");
-
-    $scope.showButton1 = false;
-    $scope.showButton2 = false;
-
-    es.onmessage = function (event) {
-        // We expect the event data to be a string of the form "<hardware type><hardware id>:<value>".
-        // Note that the quotation characters are also expected.
-        var hwType = event.data.substr(1, 1);
-        if (hwType == 'B') {
-            // Button event
-            var buttonId = event.data.substr(2, 2);
-            var buttonState = event.data.substr(5, 1);
-            if (buttonId == '01')
-                if (buttonState == '1')
-                    $scope.showButton1 = true;
-                else
-                    $scope.showButton1 = false;
-            else if (buttonId == '02')
-                if (buttonState == '1')
-                    $scope.showButton2 = true;
-                else
-                    $scope.showButton2 = false;
-        }
-        $scope.$apply();
-    };
 }]);

@@ -27,7 +27,12 @@
     {
       "presetNumber": 2,
       "presetName": "New preset #2",
-      "controls": []
+      "controls": [
+        {
+          "controlId": 80,
+          "ccValue": 64
+        }
+      ]
     },
     {
       "presetNumber": 3,
