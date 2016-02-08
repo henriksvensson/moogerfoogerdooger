@@ -1,4 +1,4 @@
-app.controller('EditPresetsCtrl', ['$scope', '$http', 'presetService', 'controlService',
+app.controller('EditCtrl', ['$scope', '$http', 'presetService', 'controlService',
     function ($scope, $http, presetService, controlService) {
 
     presetService.getAllPresets(function(presets) {
