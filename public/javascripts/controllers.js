@@ -1,11 +1,9 @@
-angular.module('myApp', []).controller('EditPresetsCtrl', function ($scope, $http) {
+app.controller('EditPresetsCtrl', ['$scope', '$http', 'presetService', function ($scope, $http, presetService) {
 
-    $http({
-        method: 'GET',
-        url: '/db/presets'
-    }).then(function (response) {
-        $scope.presets = response.data.presets;
+    presetService.getAllPresets(function(presets) {
+        $scope.presets = presets;
     });
+
     $http({
         method: 'GET',
         url: '/db/controls'
@@ -148,5 +146,4 @@ angular.module('myApp', []).controller('EditPresetsCtrl', function ($scope, $htt
         }
         $scope.$apply();
     };
-});
-
+}]);

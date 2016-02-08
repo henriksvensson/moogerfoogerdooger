@@ -1,8 +1,14 @@
 extends layout
 
 include ../node_modules/jade-bootstrap/components/icons
+include mixins/livepresetpagination
 
 block content
-    div(ng-controller="EditPresetsCtrl")
-        div.animated.zoomIn
-            p Wohoooo!
+    div(ng-controller="LiveCtrl")
+        div(class="text-center")
+            +livepresetpagination()
+
+        h1(ng-bind="currentPreset.presetName")
+        p(ng-bind="currentPreset.presetNumber")
+        p(ng-bind="JSON.stringify(currentPreset)")
+
