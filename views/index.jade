@@ -23,8 +23,8 @@ block content
             h2 Controls for {{currentPreset.presetName}}
             table.table.table-striped
                 tr(ng-repeat="control in currentPreset.controls")
-                    td(ng-bind="getControlName(control.controlId)")
-                    td(ng-bind="getControlPresentationValue(control.controlId, control.ccValue)")
+                    td(ng-bind="controlService.getName(control.controlId)")
+                    td(ng-bind="controlService.getPresentationValue(control.controlId, control.ccValue)")
                     td
                         span.glyphicon.glyphicon-remove
             div.col-xs-5

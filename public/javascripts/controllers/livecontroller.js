@@ -2,7 +2,7 @@ app.controller('LiveCtrl', ['$scope', '$http', 'presetService', 'eventSourceServ
     function ($scope, $http, presetService, eventSourceService) {
 
         // Fetch all presets from the service and assign them to scope variables.
-        presetService.getAllPresets(function (presets) {
+        presetService.getAll(function (presets) {
             $scope.allPresets = presets;
             $scope.currentPresetIndex = 0;
             $scope.currentPreset = $scope.allPresets[$scope.currentPresetIndex];

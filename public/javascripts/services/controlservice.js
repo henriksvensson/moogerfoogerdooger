@@ -8,7 +8,7 @@ app.factory('controlService', function ($http) {
          * @param callbackSuccess Called when all controls are fetched successfully. First parameter is the array of
          *                        controls.
          */
-        getAllControls: function (callbackSuccess) {
+        getAll: function (callbackSuccess) {
             if (allControls && callbackSuccess)
                 callbackSuccess(allControls);
 
@@ -22,7 +22,7 @@ app.factory('controlService', function ($http) {
             });
         },
 
-        getControl: function (controlId) {
+        get: function (controlId) {
             if (allControls)
                 for (var c = 0; c < allControls.length; c++)
                     if (allControls[c].controlId == controlId)
@@ -30,10 +30,21 @@ app.factory('controlService', function ($http) {
             return null;
         },
 
-        getControlName: function (controlId) {
-            return this.getControl(controlId).controlName;
+        getName: function (controlId) {
+            return this.get(controlId).controlName;
+        },
+
+        getPresentationValue: function (controlId, ccValue) {
+            var c = this.get(controlId);
+            if (!angular.isDefined(c))
+                return "N/A";
+            if (angular.isDefined(c.listDimension))
+                for (i = 0; i < c.listDimension.length; i++)
+                    if (c.listDimension[i].listValue == ccValue)
+                        return c.listDimension[i].listLabel;
+            if (angular.isDefined(c.rangeDimension))
+                return ccValue / (c.maxCcValue - c.minCcValue) * c.rangeDimension.maxPresentationValue - c.rangeDimension.minPresentationValue + " " + c.rangeDimension.unit;
+            return ccValue + " [raw]";
         }
-
     };
-
 });
