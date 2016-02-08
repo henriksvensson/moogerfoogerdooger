@@ -18,6 +18,8 @@ block content
         div(class="text-center")
             h1(ng-bind="currentPreset.presetName")
             p(ng-bind="currentPreset.presetNumber")
-            ul
-                li(ng-repeat="control in currentPreset.controls", ng-bind="control.controlId")
+            p(ng-repeat="control in currentPreset.controls")
+                span(ng-bind="controlService.getName(control.controlId)")
+                |:
+                span(ng-bind="controlService.getPresentationValue(control.controlId, control.ccValue)")
 

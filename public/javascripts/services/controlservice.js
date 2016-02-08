@@ -1,4 +1,4 @@
-app.factory('controlService', function ($http) {
+app.factory('controlService', function ($http, $filter) {
 
     var allControls = null;
 
@@ -23,15 +23,17 @@ app.factory('controlService', function ($http) {
         },
 
         get: function (controlId) {
-            if (allControls)
-                for (var c = 0; c < allControls.length; c++)
-                    if (allControls[c].controlId == controlId)
-                        return allControls[c];
+            for (var c = 0; c < allControls.length; c++)
+                if (allControls[c].controlId == controlId)
+                    return allControls[c];
             return null;
         },
 
         getName: function (controlId) {
-            return this.get(controlId).controlName;
+            var c = this.get(controlId);
+            if (c)
+                return c.controlName;
+            return null;
         },
 
         getPresentationValue: function (controlId, ccValue) {
@@ -43,7 +45,10 @@ app.factory('controlService', function ($http) {
                     if (c.listDimension[i].listValue == ccValue)
                         return c.listDimension[i].listLabel;
             if (angular.isDefined(c.rangeDimension))
-                return ccValue / (c.maxCcValue - c.minCcValue) * c.rangeDimension.maxPresentationValue - c.rangeDimension.minPresentationValue + " " + c.rangeDimension.unit;
+                return $filter('number')(
+                        ccValue / (c.maxCcValue - c.minCcValue) * c.rangeDimension.maxPresentationValue
+                        - c.rangeDimension.minPresentationValue, 2)
+                        + " " + c.rangeDimension.unit;
             return ccValue + " [raw]";
         }
     };

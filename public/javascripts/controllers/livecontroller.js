@@ -1,5 +1,10 @@
-app.controller('LiveCtrl', ['$scope', '$http', 'presetService', 'eventSourceService',
-    function ($scope, $http, presetService, eventSourceService) {
+app.controller('LiveCtrl', ['$scope', '$http', 'presetService', 'controlService', 'eventSourceService',
+    function ($scope, $http, presetService, controlService, eventSourceService) {
+
+        // Make the preset service available in the local scope.
+        $scope.presetService = presetService;
+        // Make the control service available in the local scope.
+        $scope.controlService = controlService;
 
         // Fetch all presets from the service and assign them to scope variables.
         presetService.getAll(function (presets) {
@@ -7,6 +12,8 @@ app.controller('LiveCtrl', ['$scope', '$http', 'presetService', 'eventSourceServ
             $scope.currentPresetIndex = 0;
             $scope.currentPreset = $scope.allPresets[$scope.currentPresetIndex];
         });
+
+        controlService.getAll();
 
         eventSourceService.register("B01", "1", function () {
             $scope.activatePreviousPreset();
