@@ -47,6 +47,11 @@
           "ccValue": 16383
         }
       ]
+    },
+    {
+      "presetNumber": 4,
+      "presetName": "New preset #4",
+      "controls": []
     }
   ]
 }
