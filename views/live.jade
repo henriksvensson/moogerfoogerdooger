@@ -23,3 +23,5 @@ block content
                 |:
                 span(ng-bind="controlService.getPresentationValue(control.controlId, control.ccValue)")
 
+block footer
+    button.btn.btn-lg.btn-primary(ng-click="presetService.send(currentPreset)") FIRE!

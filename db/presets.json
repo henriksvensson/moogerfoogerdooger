@@ -52,6 +52,20 @@
       "presetNumber": 4,
       "presetName": "New preset #4",
       "controls": []
+    },
+    {
+      "presetNumber": 5,
+      "presetName": "New preset #5",
+      "controls": [
+        {
+          "controlId": 80,
+          "ccValue": 64
+        },
+        {
+          "controlId": 739,
+          "ccValue": 6553.200000000001
+        }
+      ]
     }
   ]
 }

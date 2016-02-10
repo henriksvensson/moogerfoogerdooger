@@ -17,9 +17,11 @@ app.controller('LiveCtrl', ['$scope', '$http', 'presetService', 'controlService'
 
         eventSourceService.register("B01", "1", function () {
             $scope.activatePreviousPreset();
+            $scope.$apply();
         });
         eventSourceService.register("B02", "1", function () {
             $scope.activateNextPreset();
+            $scope.$apply();
         });
 
         /**
@@ -35,7 +37,6 @@ app.controller('LiveCtrl', ['$scope', '$http', 'presetService', 'controlService'
             if ($scope.currentPresetIndex < $scope.allPresets.length - 1) {
                 $scope.currentPresetIndex++;
                 $scope.currentPreset = $scope.allPresets[$scope.currentPresetIndex];
-                $scope.$apply();
             }
         };
 
@@ -43,7 +44,6 @@ app.controller('LiveCtrl', ['$scope', '$http', 'presetService', 'controlService'
             if ($scope.currentPresetIndex > 0) {
                 $scope.currentPresetIndex--;
                 $scope.currentPreset = $scope.allPresets[$scope.currentPresetIndex];
-                $scope.$apply();
             }
         };
 

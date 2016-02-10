@@ -3,13 +3,16 @@ html(ng-app="moogerFoogerDooger")
     head
         title= title
         block styles
-        link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
-        link(rel='stylesheet', href='/stylesheets/animate/animate.min.css')
-        link(rel='stylesheet', href='/stylesheets/style.css')
+            link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+            link(rel='stylesheet', href='/stylesheets/animate/animate.min.css')
+            link(rel='stylesheet', href='/stylesheets/style.css')
     body
         div.row
             div.col-xs-12
                 block content
+
+        footer.footer
+            block footer
 
         block scripts
             script(src="/javascripts/jquery/jquery.min.js")
@@ -22,3 +25,5 @@ html(ng-app="moogerFoogerDooger")
             script(src='/javascripts/services/eventsourceservice.js')
             script(src='/javascripts/controllers/editcontroller.js')
             script(src='/javascripts/controllers/livecontroller.js')
+
+
