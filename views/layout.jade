@@ -6,7 +6,7 @@ html(ng-app="moogerFoogerDooger")
             link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
             link(rel='stylesheet', href='/stylesheets/animate/animate.min.css')
             link(rel='stylesheet', href='/stylesheets/style.css')
-    body
+    body(ng-controller="BodyCtrl", ng-keypress="keypressEvent = $event")
         div.row
             div.col-xs-12
                 block content
@@ -23,6 +23,7 @@ html(ng-app="moogerFoogerDooger")
             script(src='/javascripts/services/presetservice.js')
             script(src='/javascripts/services/controlservice.js')
             script(src='/javascripts/services/eventsourceservice.js')
+            script(src='/javascripts/controllers/bodycontroller.js')
             script(src='/javascripts/controllers/editcontroller.js')
             script(src='/javascripts/controllers/livecontroller.js')
 

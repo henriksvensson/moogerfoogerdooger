@@ -15,13 +15,15 @@ app.controller('LiveCtrl', ['$scope', '$http', 'presetService', 'controlService'
 
         controlService.getAll();
 
-        eventSourceService.register("B01", "1", function () {
+        eventSourceService.register("B01", "1", function (object, eventMessage, isExternal) {
             $scope.activatePreviousPreset();
-            $scope.$apply();
+            if(isExternal)
+                $scope.$apply();
         });
-        eventSourceService.register("B02", "1", function () {
+        eventSourceService.register("B02", "1", function (object, eventMessage, isExternal) {
             $scope.activateNextPreset();
-            $scope.$apply();
+            if(isExternal)
+                $scope.$apply();
         });
 
         /**
@@ -46,5 +48,7 @@ app.controller('LiveCtrl', ['$scope', '$http', 'presetService', 'controlService'
                 $scope.currentPreset = $scope.allPresets[$scope.currentPresetIndex];
             }
         };
+
+        $scope.keyupEvent = null;
 
     }]);

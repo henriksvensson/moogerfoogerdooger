@@ -23,9 +23,10 @@ app.factory('controlService', function ($http, $filter) {
         },
 
         get: function (controlId) {
-            for (var c = 0; c < allControls.length; c++)
-                if (allControls[c].controlId == controlId)
-                    return allControls[c];
+            if (allControls)
+                for (var c = 0; c < allControls.length; c++)
+                    if (allControls[c].controlId == controlId)
+                        return allControls[c];
             return null;
         },
 
@@ -48,7 +49,7 @@ app.factory('controlService', function ($http, $filter) {
                 return $filter('number')(
                         ccValue / (c.maxCcValue - c.minCcValue) * c.rangeDimension.maxPresentationValue
                         - c.rangeDimension.minPresentationValue, 2)
-                        + " " + c.rangeDimension.unit;
+                    + " " + c.rangeDimension.unit;
             return ccValue + " [raw]";
         }
     };

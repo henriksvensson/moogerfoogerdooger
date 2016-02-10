@@ -9,12 +9,7 @@ app.factory('eventSourceService', function () {
 
     var registeredListeners = {};
 
-    /**
-     * The onmessage function gets called for each message received on the event source stream. Here, we parse the
-     * message and call all listeners registered for the given object and event.
-     * @param event
-     */
-    es.onmessage = function (event) {
+    var eventTrigger = function (event, isExternal) {
         if (!event.data)
             return;
         var raw = event.data.replace(/"/g, '').split(":");
@@ -27,7 +22,16 @@ app.factory('eventSourceService', function () {
         // to each callback function.
         if (registeredListeners && registeredListeners[object] && registeredListeners[object][eventMessage])
             for (var c = 0; c < registeredListeners[object][eventMessage].length; c++)
-                registeredListeners[object][eventMessage][c](object, eventMessage);
+                registeredListeners[object][eventMessage][c](object, eventMessage, isExternal);
+    };
+
+    /**
+     * The onmessage function gets called for each message received on the event source stream. Here, we parse the
+     * message and call all listeners registered for the given object and event.
+     * @param event
+     */
+    es.onmessage = function(event) {
+        eventTrigger(event, true);
     };
 
     return {
@@ -43,6 +47,14 @@ app.factory('eventSourceService', function () {
                 registeredListeners[object][event] = [];
             }
             registeredListeners[object][event].push(callback);
+        },
+
+        /**
+         * Programatically trigger an event.
+         * @param eventData The event data to send in the triggered event.
+         */
+        trigger: function (eventData) {
+            eventTrigger({data: eventData});
         }
     }
 });
